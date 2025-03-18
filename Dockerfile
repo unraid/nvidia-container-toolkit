@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM debian:buster-slim
 
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -37,6 +37,9 @@ CMD bash -c "cd ${DATA_DIR} && \
   cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime-hook ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
   cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
   cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-ctk ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
+  cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-cdi-hook ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
+  cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime.cdi ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
+  cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime.legacy ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
   cd ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
   ln -s nvidia-container-runtime-hook nvidia-container-toolkit && \
   mkdir -p ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/etc/nvidia-container-runtime && \
