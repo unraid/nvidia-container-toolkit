@@ -22,7 +22,8 @@ jobs:
       run: |
         # Grab latest nvidia-container-toolkit release from official repostiory and latest compiled release version from this repostiory
         LATEST_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/NVIDIA/nvidia-container-toolkit/releases/latest | jq -r '.tag_name' | sed 's/^v//')"
-        CURRENT_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/unraid/nvidia-container-toolkit/releases/latest | jq -r '.tag_name' | sed 's/^v//')"
+        CURRENT_TOOLKIT=1.17.4
+        #CURRENT_TOOLKIT="$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} -s https://api.github.com/repos/unraid/nvidia-container-toolkit/releases/latest | jq -r '.tag_name' | sed 's/^v//')"
 
         # Check if one of the versions is empty
         if ! echo "${LATEST_TOOLKIT}" | grep -qE '^\b[0-9]+(\.[0-9]+)*\b$'; then
