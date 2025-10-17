@@ -83,3 +83,13 @@ jobs:
         asset_path: ./output/v${{ env.TOOLKIT_VERSION }}/nvidia-container-toolkit-v${{ env.TOOLKIT_VERSION }}.tar.gz
         asset_name: nvidia-container-toolkit-v${{ env.TOOLKIT_VERSION }}.tar.gz
         asset_content_type: application/gzip
+
+    - name: Make a dummy commit
+      if: env.CREATE_RELEASE == 'false' && success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit --allow-empty -m "Keep GH Action alive"
+        git push
