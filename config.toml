@@ -17,6 +17,7 @@ ldconfig = "@/sbin/ldconfig"
 [nvidia-container-runtime]
 #debug = "/var/log/nvidia-container-runtime.log"
 log-level = "warning"
+no-pivot = true
 
 # Specify the runtimes to consider. This list is processed in order and the PATH
 # searched for matching executables unless the entry is an absolute path.
@@ -27,6 +28,5 @@ runtimes = [
 
 mode = "auto"
 
-    [nvidia-container-runtime.modes.csv]
-
-    mount-spec-path = "/etc/nvidia-container-runtime/host-files-for-container.d"
+[nvidia-container-runtime.modes.csv]
+mount-spec-path = "/etc/nvidia-container-runtime/host-files-for-container.d"
