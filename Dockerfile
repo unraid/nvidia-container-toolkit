@@ -18,8 +18,8 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 ENV OS_ARCH="amd64"
-ENV GOLANG_VERSION="1.22.5"
-RUN curl https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-${OS_ARCH}.tar.gz | tar -C /usr/local -xz
+ENV GOLANG_VERSION="1.25.6"
+RUN wget -qO- https://go.dev/dl/go${GOLANG_VERSION}.linux-${OS_ARCH}.tar.gz | tar -C /usr/local -xz
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 ENV DATA_DIR=/tmp
@@ -37,8 +37,6 @@ CMD bash -c "cd ${DATA_DIR} && \
   cd ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit && \
   git checkout v${TOOLKIT_VERSION} && \
   mkdir -p ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
-  sed -i '/if err := updateLdCache(os\.Args); err != nil/,+3d' ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
-  sed -i '/func updateLdCacheHandler() {/a\\\\tvar _ = log.Printf' ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-cdi-hook/update-ldcache/update-ldcache.go && \
   make LIBNVIDIA_CONTAINER_VERSION=${TOOLKIT_VERSION} LIBNVIDIA_CONTAINER_TAG=${TOOLKIT_VERSION} binaries && \
   cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime-hook ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
   cp ${DATA_DIR}/go/src/github.com/NVIDIA/nvidia-container-toolkit/nvidia-container-runtime ${DATA_DIR}/nvidia-container-toolkit-${TOOLKIT_VERSION}/usr/bin && \
