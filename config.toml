@@ -4,6 +4,7 @@ disable-require = false
 #accept-nvidia-visible-devices-as-volume-mounts = false
 
 [nvidia-container-cli]
+no-pivot = true
 #root = "/run/nvidia/driver"
 path = "/usr/bin/nvidia-container-cli"
 environment = []
@@ -17,7 +18,6 @@ ldconfig = "@/sbin/ldconfig"
 [nvidia-container-runtime]
 #debug = "/var/log/nvidia-container-runtime.log"
 log-level = "warning"
-no-pivot = true
 
 # Specify the runtimes to consider. This list is processed in order and the PATH
 # searched for matching executables unless the entry is an absolute path.
